@@ -11,11 +11,11 @@ const PharmacyTabs = () => {
             <div className="flex flex-row md:flex-col gap-4 overflow-x-auto">
                 {pharmacies.map((pharmacy) => (
                     <Button
-                        key={pharmacy.id}
+                        key={pharmacy._id}
                         outline
                         label={pharmacy.name}
-                        onClick={() => setActiveTab(pharmacy.id)}
-                        active={activeTab == pharmacy.id}
+                        onClick={() => setActiveTab(pharmacy._id)}
+                        active={activeTab == pharmacy._id}
                     />
                 ))}
             </div>
