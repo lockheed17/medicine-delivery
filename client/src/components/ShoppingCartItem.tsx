@@ -1,23 +1,31 @@
-import {CartProduct, Product} from "../../types.ts";
-import { GiMedicinePills } from "react-icons/gi";
+import {CartProduct} from "../../types.ts";
 import Button from "./UI/Button.tsx";
 import useCartStore from "../store/useCartStore.ts";
 
 type ShoppingCartItemProps = {
     item: CartProduct;
-    onRemove: () => void;
-    onQuantityChange: (quantity: number) => void;
+    // onRemove: () => void;
+    // onQuantityChange: (quantity: number) => void;
 }
 
-const ShoppingCartItem = ({ item, onRemove, onQuantityChange }: ShoppingCartItemProps) => {
-    const {changeQuantity} = useCartStore();
-    const handleQuantityChange = (count) => {
-        console.log(count)
-        changeQuantity(count)
-    }
+const ShoppingCartItem = ({ item }: ShoppingCartItemProps) => {
+    const { increaseQuantity, decreaseQuantity, removeItemFromCart } = useCartStore();
+
+    const onIncreaseQuantity = (productId: string) => {
+        increaseQuantity(productId);
+    };
+
+    const onDecreaseQuantity = (productId: string) => {
+        decreaseQuantity(productId);
+    };
+
+    const onRemoveItem = (productId: string) => {
+        removeItemFromCart(productId);
+    };
+
 
     return (
-        <div className="flex p-2 justify-around gap-4 items-center border-slate border-2 rounded">
+        <div className="flex p-2 justify-around gap-4 items-center border-slate border-2 rounded flex-col md:flex-row">
             <div className="w-1/2 md:w-1/3 ">
                 <img className="" src={item.image} alt={item.name}/>
             </div>
@@ -25,15 +33,27 @@ const ShoppingCartItem = ({ item, onRemove, onQuantityChange }: ShoppingCartItem
             <div className="flex flex-col gap-1">
                 <h3 className="text-xl font-semibold tracking-tight text-gray-900">{item.name}</h3>
                 <p className="text-2xl font-semibold text-gray-900">{item.price}</p>
-                <input
-                    type="number"
-                    value={item.quantity}
-                    onChange={(e) => handleQuantityChange(e.target.value)}
-                />
+                <div className="flex justify-center items-center gap-5 mb-2">
+                    <button
+                        onClick={() => onIncreaseQuantity(item._id)}
+                        title="Increase quantity"
+                        className="bg-orange-500 px-2 py-2 text-white rounded-full"
+                    >
+                        +
+                    </button>
+                    <p>{item.quantity}</p>
+                    <button
+                        onClick={() => onDecreaseQuantity(item._id)}
+                        title="Decrease Quantity"
+                        className="bg-orange-500 px-2 py-2 text-white rounded-full"
+                    >
+                        -
+                    </button>
+                </div>
                 <Button
                     small
                     label="Remove"
-                    onClick={onRemove}
+                    onClick={() => onRemoveItem(item._id)}
                 />
             </div>
 

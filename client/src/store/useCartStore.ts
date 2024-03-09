@@ -3,15 +3,17 @@ import {CartProduct, Product} from "../../types.ts";
 
 interface CartState {
     cartItems: CartProduct[];
-    addToCart: (item: Product) => void;
-    increaseQuantity: (productId: number) => void;
-    decreaseQuantity: (productId: number) => void;
+    addItemToCart: (item: Product) => void;
+    increaseQuantity: (productId: string) => void;
+    decreaseQuantity: (productId: string) => void;
+    removeItemFromCart: (productId: string) => void;
 }
 
 const useCartStore = create<CartState>((set, get) => ({
     cartItems: [],
+    total: 0,
 
-    addToCart: (item) => {
+    addItemToCart: (item) => {
         const itemExists = get().cartItems.find(
             (cartItem) => cartItem._id === item._id
         );
@@ -26,56 +28,56 @@ const useCartStore = create<CartState>((set, get) => ({
         }
     },
 
-    // increaseQuantity: (productId) => {
-    //     const itemExists = get().cartItems.find(
-    //         (cartItem) => cartItem.id === productId
-    //     );
-    //
-    //     if (itemExists) {
-    //         if (typeof itemExists.quantity === "number") {
-    //             itemExists.quantity++;
-    //         }
-    //
-    //         set({ cartItems: [...get().cartItems] });
-    //     }
-    // },
-    //
-    // decreaseQuantity: (productId) => {
-    //     const itemExists = get().cartItems.find(
-    //         (cartItem) => cartItem.id === productId
-    //     );
-    //
-    //     if (itemExists) {
-    //         if (typeof itemExists.quantity === "number") {
-    //             if (itemExists.quantity === 1) {
-    //                 const updatedCartItems = get().cartItems.filter(
-    //                     (item) => item.id !== productId
-    //                 );
-    //                 set({ cartItems: updatedCartItems });
-    //             } else {
-    //                 itemExists.quantity--;
-    //                 set({ cartItems: [...get().cartItems] });
-    //             }
-    //         }
-    //     }
-    // },
+    increaseQuantity: (productId) => {
+        const itemExists = get().cartItems.find(
+            (cartItem) => cartItem._id === productId
+        );
 
-    // removeFromCart: (item) => {
-    //     set((state) => ({
-    //         cartItems: state.cartItems.filter((i) => i.id !== item.id),
-    //         total: state.total - item.price,
-    //     }));
-    // },
-    //
-    changeQuantity: (item, quantity) => {
-        set((state) => ({
-            cartItems: state.cartItems.map((i) =>
-                i.id === item.id ? { ...i, quantity } : i
-            ),
-            total:
-                state.total + (quantity - item.quantity) * item.price,
-        }));
+        if (itemExists) {
+            if (typeof itemExists.quantity === "number") {
+                itemExists.quantity++;
+            }
+
+            set({ cartItems: [...get().cartItems] });
+        }
     },
+
+    decreaseQuantity: (productId) => {
+        const itemExists = get().cartItems.find(
+            (cartItem) => cartItem._id === productId
+        );
+
+        if (itemExists) {
+            if (typeof itemExists.quantity === "number") {
+                if (itemExists.quantity === 1) {
+                    const updatedCartItems = get().cartItems.filter(
+                        (item) => item._id !== productId
+                    );
+                    set({ cartItems: updatedCartItems });
+                } else {
+                    itemExists.quantity--;
+                    set({ cartItems: [...get().cartItems] });
+                }
+            }
+        }
+    },
+
+    removeItemFromCart: (productId) => {
+        const itemExists = get().cartItems.find(
+            (cartItem) => cartItem._id === productId
+        );
+
+        if (itemExists) {
+            if (typeof itemExists.quantity === "number") {
+                const updatedCartItems = get().cartItems.filter(
+                    (item) => item._id !== productId
+                );
+                set({ cartItems: updatedCartItems });
+            }
+        }
+    },
+
+
 }));
 
 export default useCartStore;

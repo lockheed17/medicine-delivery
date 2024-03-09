@@ -1,14 +1,16 @@
 import {User} from "../../types.ts";
-import {useState} from "react";
-import {FieldValues, useForm} from "react-hook-form";
+import {useImperativeHandle, useState} from "react";
+import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 import FormInput from "./UI/FormInput.tsx";
 
 type UserFormProps = {
     user?: User;
+    reference?: any;
 }
 
-const UserForm = ({user}: UserFormProps) => {
+const UserForm = ({user, reference}: UserFormProps) => {
     const [isLoading, setIsLoading] = useState(false);
+    // const {formData, setFormData, isFormSubmitted} = useFormStore();
 
     const {
         register,
@@ -26,8 +28,21 @@ const UserForm = ({user}: UserFormProps) => {
         }
     })
 
+    useImperativeHandle(reference, () => ({
+        submitForm() {
+            console.log("form.submitform");
+            handleSubmit(onSubmit)();
+        }
+    }));
+
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        console.log(data)
+    }
+
+
+
     return (
-        <div className="flex flex-col p-4 justify-around h-full">
+        <form onSubmit={handleSubmit(onSubmit, () => console.log(errors))} className="flex flex-col p-4 gap-10 justify-center h-full">
             <FormInput
                 id="name"
                 label="Name"
@@ -60,7 +75,7 @@ const UserForm = ({user}: UserFormProps) => {
                 errors={errors}
                 required
             />
-        </div>
+          </form>
     );
 }
 

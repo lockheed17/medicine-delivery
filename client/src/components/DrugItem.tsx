@@ -15,10 +15,10 @@ const DrugItem: React.FC<DrugItemProps> = ({
                                                price,
                                                product,
                                            }) => {
-    const { addToCart } = useCartStore();
-    const handleAddToCart = () => {
-        console.log(product)
-        addToCart(product);
+    const { addItemToCart } = useCartStore();
+    const handleAddItemToCart = () => {
+        // console.log(product)
+        addItemToCart(product);
     }
 
     return (
@@ -35,7 +35,7 @@ const DrugItem: React.FC<DrugItemProps> = ({
                     outline
                     small
                     label="Add to cart"
-                    onClick={handleAddToCart}
+                    onClick={handleAddItemToCart}
                 />
             </div>
         </div>

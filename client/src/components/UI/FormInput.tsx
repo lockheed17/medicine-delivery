@@ -1,4 +1,4 @@
-import {FieldErrors, FieldValues, useForm, UseFormRegister} from "react-hook-form";
+import {FieldErrors, FieldValues, UseFormRegister} from "react-hook-form";
 
 type Props = {
     id: string
@@ -7,11 +7,10 @@ type Props = {
     disabled?: boolean
     required?: boolean
     register: UseFormRegister<FieldValues>
-    errors: FieldErrors
+    errors: FieldErrors,
 };
 
 const FormInput = ({id, label, type = "text", disabled, required, register, errors}: Props) => {
-
 
     return (
         <div className="w-full relative">
