@@ -24,8 +24,9 @@ const ShoppingCartFooter: React.FC<ShoppingCartFooterProps> = ({ submitUserForm 
     const handleButtonClick = () => {
         // console.log(submitUserForm)
         // reference.current.submitForm()
-        const result = submitUserForm();
-        console.log(result)
+        // const result = submitUserForm();
+        // console.log(result)
+        console.log(cartItems)
     }
 
     return (

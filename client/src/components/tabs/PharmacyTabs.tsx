@@ -1,8 +1,12 @@
-import pharmacies from "../../data/pharmacies.ts";
 import useTabStore from "../../store/useTabStore.ts";
 import Button from "../UI/Button.tsx";
+import {Pharmacy} from "../../../types.ts";
 
-const PharmacyTabs = () => {
+type PharmacyTabs = {
+    pharmacies: Pharmacy[],
+}
+
+const PharmacyTabs = ({pharmacies}: PharmacyTabs) => {
     const {activeTab, setActiveTab} = useTabStore();
 
     return (
