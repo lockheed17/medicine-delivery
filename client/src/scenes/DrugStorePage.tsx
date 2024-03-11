@@ -27,7 +27,6 @@ const DrugStorePage = () => {
 
     useEffect(() => {
         getPharmacies()
-
     }, []);
 
     return (

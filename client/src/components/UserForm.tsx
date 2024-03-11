@@ -2,6 +2,8 @@ import {User} from "../../types.ts";
 import {useImperativeHandle, useState} from "react";
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 import FormInput from "./UI/FormInput.tsx";
+import axios from "axios";
+import useCartStore from "../store/useCartStore.ts";
 
 type UserFormProps = {
     user?: User;
@@ -10,15 +12,15 @@ type UserFormProps = {
 
 const UserForm = ({user, reference}: UserFormProps) => {
     const [isLoading, setIsLoading] = useState(false);
-    // const {formData, setFormData, isFormSubmitted} = useFormStore();
+
+
+    const { cartItems, getTotal } = useCartStore();
 
     const {
         register,
         handleSubmit,
         reset,
         formState: {errors},
-        watch,
-        setValue
     } = useForm<FieldValues>({
         defaultValues: {
             name: user?.name || '',
@@ -36,9 +38,35 @@ const UserForm = ({user, reference}: UserFormProps) => {
     }));
 
     const onSubmit: SubmitHandler<FieldValues> = (data) => {
-        console.log(data)
-    }
+        const userData = data;
 
+        const orderValue = {
+            ...userData,
+            cartItems,
+            totalPrice: cartItems.reduce((sum, cartItem) => sum + cartItem.quantity * cartItem.price, 0),
+            totalQuantity: cartItems.reduce((sum, cartItem) => sum + cartItem.quantity, 0),
+        };
+        console.log(orderValue)
+
+        axios.post(
+            `${import.meta.env.VITE_ENDPOINT}/orders/`, orderValue)
+            .then(res => {
+                const loggedIn = res.data
+
+                if (loggedIn) {
+                    // toast.success("Додано шукача")
+                    console.log("+++")
+                    reset()
+                }
+            })
+            .catch(error => {
+                // toast.error(error.response?.data.message)
+                console.error(error.response?.data.message)
+            })
+            .finally(() => {
+                setIsLoading(false)
+            })
+    }
 
 
     return (

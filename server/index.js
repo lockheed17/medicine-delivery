@@ -4,6 +4,7 @@ import cors from "cors"
 import dotenv from "dotenv"
 import helmet from "helmet"
 import pharmaciesRoutes from "./routes/pharmacies.js";
+import ordersRoutes from "./routes/orders.js";
 import bodyParser from "express";
 
 // CONFIGURATION
@@ -12,17 +13,18 @@ const app = express()
 app.use(express.json())
 app.use(helmet())
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }))
-// app.use(bodyParser.json({ limit: "20mb", extended: true }))
+app.use(bodyParser.json({ limit: "20mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "20mb", extended: true }))
 app.use(cors())
 
 // ROUTES
 app.use("/pharmacies", pharmaciesRoutes)
+app.use("/orders", ordersRoutes)
 
 
 // MONGOOSE SETUP
 const PORT = process.env.PORT || 5000;
-mongoose.connect(process.env.MONGO_URL, )
+mongoose.connect(process.env.MONGO_URL)
     .then(() => {
         app.listen(PORT, () => console.log(`Server Port: ${PORT}`))
     })

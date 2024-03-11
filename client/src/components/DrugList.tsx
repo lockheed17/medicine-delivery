@@ -11,37 +11,10 @@ type DrugListProps = {
 
 const DrugList = ({pharmacies}: DrugListProps) => {
     const {activeTab} = useTabStore();
-    // const [pharmacies, setPharmacies] = useState<Pharmacy[]>([]);
-    // const getPharmacies = async () => {
-    //     try {
-    //         const response = await axios.get(
-    //             `${import.meta.env.VITE_ENDPOINT}/pharmacies/`,
-    //             {
-    //                 // headers: {
-    //                 //     Authorization: `Bearer ${token}`,
-    //                 // }
-    //             }
-    //         )
-    //         // console.log(response.data)
-    //         setPharmacies(response.data)
-    //     } catch (error) {
-    //         // toast.error(`${error}`)
-    //         console.log(error)
-    //     }
-    // }
-
-    // useEffect(() => {
-    //     getPharmacies()
-    //
-    // }, []);
-
-    console.log(pharmacies)
 
     const selectedPharmacyData = pharmacies.find(
         (pharmacy: Pharmacy) => pharmacy._id === activeTab
     );
-
-
 
     return (
         <div className="flex flex-wrap gap-4 p-2">
