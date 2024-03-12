@@ -1,43 +1,20 @@
 
 import useCartStore from "../store/useCartStore.ts";
 import Button from "./UI/Button.tsx";
-// import {useFormStore} from "../store/useFormStore.ts";
 
 interface ShoppingCartFooterProps {
     submitUserForm: () => void;
 }
 
-const ShoppingCartFooter: React.FC<ShoppingCartFooterProps> = ({ submitUserForm }) => {
+const ShoppingCartFooter = ({ submitUserForm }: ShoppingCartFooterProps) => {
 
     const { cartItems, getTotal } = useCartStore();
 
-    // const {formData} = useFormStore();
-    // const getTotal = (cartItem: CartProduct[]) => {
-    //     // let totalQuantity = 0;
-    //     // let totalPrice = 0;
-    //     cartItem.forEach((item) => {
-    //         totalQuantity += item.quantity!;
-    //         totalPrice += item.price! * item.quantity!;
-    //     });
-    //     return { totalPrice, totalQuantity };
-    // };
     const quantity = getTotal(cartItems).totalQuantity;
     const price = getTotal(cartItems).totalPrice;
 
     const getAllData = () => {
-        // console.log(submitUserForm)
-        // reference.current.submitForm()
         submitUserForm();
-        // console.log(totalQuantity, quantity)
-        // const combinedObject = {
-        //     ...formData,
-        //     cartItems,
-        // };
-        // console.log(totalPrice, totalQuantity)
-        // console.log(combinedObject)
-
-        // console.log(formData)
-        // console.log(cartItems)
     }
 
     const handleButtonClick = () => {

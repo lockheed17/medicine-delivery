@@ -3,7 +3,6 @@ import ShoppingCartItem from "./ShoppingCartItem.tsx";
 
 const ShoppingCartList = () => {
     const {cartItems} = useCartStore();
-    // console.log(cartItems);
 
     return (
         <div className="flex flex-col p-2 gap-4 h-full">

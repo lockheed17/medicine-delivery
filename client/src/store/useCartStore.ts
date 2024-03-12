@@ -9,6 +9,7 @@ export interface CartStore {
     increaseQuantity: (productId: string) => void;
     decreaseQuantity: (productId: string) => void;
     removeItemFromCart: (productId: string) => void;
+    clearCart: () => void;
     getTotal: (cartItem: CartProduct[]) => {totalPrice: number, totalQuantity: number};
 }
 
@@ -81,24 +82,14 @@ const useCartStore = create<CartStore>((set, get) => ({
         }
     },
 
+    clearCart: () => {
+        set({ cartItems: [], totalQuantity: 0, totalPrice: 0 });
+    },
+
     getTotal: (cartItems) => {
-        // if (cartItems.length === 0) {
-        //     return {
-        //         totalPrice: 0,
-        //         totalQuantity: 0,
-        //     };
-        // }
 
         const totalQuantity = cartItems.reduce((acc, item) => acc + item.quantity!, 0);
         const totalPrice = cartItems.reduce((acc, item) => acc + item.price! * item.quantity!, 0);
-
-        // // Обновление переменных в сторе
-        // set((state) => ({
-        //     ...state,
-        //     totalPrice: cartItems.reduce((acc, item) => acc + item.quantity!, 0),
-        //     totalQuantity: cartItems.reduce((acc, item) => acc + item.price! * item.quantity!, 0),
-        // }));
-
 
         return {
             totalPrice,

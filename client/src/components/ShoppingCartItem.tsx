@@ -4,8 +4,6 @@ import useCartStore from "../store/useCartStore.ts";
 
 type ShoppingCartItemProps = {
     item: CartProduct;
-    // onRemove: () => void;
-    // onQuantityChange: (quantity: number) => void;
 }
 
 const ShoppingCartItem = ({ item }: ShoppingCartItemProps) => {
@@ -32,7 +30,13 @@ const ShoppingCartItem = ({ item }: ShoppingCartItemProps) => {
 
             <div className="flex flex-col gap-1">
                 <h3 className="text-xl font-semibold tracking-tight text-gray-900">{item.name}</h3>
-                <p className="text-2xl font-semibold text-gray-900">{item.price}</p>
+                <p className="text-2xl font-bold text-gray-900">
+                    {" "}
+                    {new Intl.NumberFormat("en-US", {
+                        style: "currency",
+                        currency: "USD",
+                    }).format(item.price)}
+                </p>
                 <div className="flex justify-center items-center gap-5 mb-2">
                     <button
                         onClick={() => onIncreaseQuantity(item._id)}
@@ -56,7 +60,6 @@ const ShoppingCartItem = ({ item }: ShoppingCartItemProps) => {
                     onClick={() => onRemoveItem(item._id)}
                 />
             </div>
-
         </div>
     );
 };

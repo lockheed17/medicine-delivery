@@ -1,32 +1,29 @@
 import PharmacyTabs from "../components/tabs/PharmacyTabs.tsx"
 import DrugList from "../components/DrugList.tsx";
 import axios from "axios";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {Pharmacy} from "../../types.ts";
+import toast from "react-hot-toast";
 
 
 const DrugStorePage = () => {
     const [pharmacies, setPharmacies] = useState<Pharmacy[]>([]);
+
+    const isDataLoaded = useRef(false);
     const getPharmacies = async () => {
         try {
-            const response = await axios.get(
-                `${import.meta.env.VITE_ENDPOINT}/pharmacies/`,
-                {
-                    // headers: {
-                    //     Authorization: `Bearer ${token}`,
-                    // }
-                }
-            )
-            // console.log(response.data)
+            const response = await axios.get(`${import.meta.env.VITE_ENDPOINT}/pharmacies/`)
             setPharmacies(response.data)
         } catch (error) {
-            // toast.error(`${error}`)
-            console.log(error)
+            toast.error(`Something went wrong.`);
         }
     }
 
     useEffect(() => {
-        getPharmacies()
+        if (!isDataLoaded.current) {
+            getPharmacies()
+            isDataLoaded.current = true;
+        }
     }, []);
 
     return (
