@@ -25,7 +25,7 @@ const ShoppingCartPage = () => {
             <div className="border-slate-500 border-2 rounded col-span-full md:col-span-1 min-h-3/4 overflow-y-auto">
                 <ShoppingCartList/>
             </div>
-            <div className="col-span-2 border-black border-2 min-h-1/4">
+            <div className="col-span-2 min-h-1/4">
                 <ShoppingCartFooter submitUserForm={submitUserForm}/>
             </div>
         </div>

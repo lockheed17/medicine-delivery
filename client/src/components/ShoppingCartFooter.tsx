@@ -23,7 +23,7 @@ const ShoppingCartFooter = ({ submitUserForm }: ShoppingCartFooterProps) => {
 
     return (
         <div className="p-2 flex justify-end gap-4 items-center h-full">
-            <div className="">
+            <div className="flex flex-col items-baseline">
                 <h3 className="text-xl text-center  ">
                     Total Quantity: <span className="font-bold"> {quantity}</span>
                 </h3>

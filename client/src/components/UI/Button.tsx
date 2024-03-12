@@ -1,13 +1,8 @@
-'use client';
-
-import {IconType} from "react-icons";
-
 interface ButtonProps {
     label: string;
     onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
     outline?: boolean;
     small?: boolean;
-    icon?: IconType
     active?: boolean;
 }
 
@@ -16,7 +11,6 @@ const Button: React.FC<ButtonProps> = ({
                                            onClick,
                                            outline,
                                            small,
-                                           icon: Icon,
                                            active
                                        }) => {
     return (
@@ -34,22 +28,12 @@ const Button: React.FC<ButtonProps> = ({
                 ${outline ? 'border-black' : 'border-rose-500'}
                 ${outline ? 'text-black' : 'text-white'}
                 ${small ? 'py-1' : 'py-3'}
-                ${small ? 'text-sm' : 'text-md'} {/* text-md doesn't exist */}
+                ${small ? 'text-sm' : 'text-md'} 
                 ${small ? 'font-medium' : 'font-semibold'}
                 ${small ? 'border-[1px]' : 'border-2'}
-                ${active ? 'bg-emerald-400' : ''}
+                ${active ? 'bg-emerald-500 text-white' : ''}
             `}
         >
-            {Icon && (
-                <Icon
-                    size={24}
-                    className="
-                        absolute
-                        left-4
-                        top-3
-                    "
-                />
-            )}
             {label}
         </button>
     );

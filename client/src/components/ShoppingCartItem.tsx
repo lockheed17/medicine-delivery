@@ -41,7 +41,7 @@ const ShoppingCartItem = ({ item }: ShoppingCartItemProps) => {
                     <button
                         onClick={() => onIncreaseQuantity(item._id)}
                         title="Increase quantity"
-                        className="bg-orange-500 px-2 py-2 text-white rounded-full"
+                        className="bg-gray-300 px-2 py-2 text-neutral-800 rounded-full hover:bg-neutral-200 transition"
                     >
                         +
                     </button>
@@ -49,7 +49,7 @@ const ShoppingCartItem = ({ item }: ShoppingCartItemProps) => {
                     <button
                         onClick={() => onDecreaseQuantity(item._id)}
                         title="Decrease Quantity"
-                        className="bg-orange-500 px-2 py-2 text-white rounded-full"
+                        className="bg-gray-300 px-2 py-2 text-neutral-800 rounded-full hover:bg-neutral-200 transition"
                     >
                         -
                     </button>
