@@ -31,7 +31,7 @@ const Button: React.FC<ButtonProps> = ({
                 ${small ? 'text-sm' : 'text-md'} 
                 ${small ? 'font-medium' : 'font-semibold'}
                 ${small ? 'border-[1px]' : 'border-2'}
-                ${active ? 'bg-emerald-500 text-white' : ''}
+                ${active ? 'bg-emerald-400 text-white' : ''}
             `}
         >
             {label}
